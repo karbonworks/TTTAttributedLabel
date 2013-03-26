@@ -1002,12 +1002,16 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
     }
 }
 
+- (void)unsetLink {
+  self.activeLink = nil;
+}
+
 - (void)touchesEnded:(NSSet *)touches
            withEvent:(UIEvent *)event
 {
     if (self.activeLink) {
         NSTextCheckingResult *result = self.activeLink;
-        self.activeLink = nil;
+        [self performSelector:@selector(unsetLink) withObject:nil afterDelay:0.1];
 
         switch (result.resultType) {
             case NSTextCheckingTypeLink:
